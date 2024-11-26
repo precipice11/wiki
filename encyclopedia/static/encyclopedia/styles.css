@@ -36,3 +36,9 @@ textarea {
 .sidebar h2 {
     margin-top: 5px;
 }
+
+#error {
+    color: red;
+    text-align: center;
+}
+

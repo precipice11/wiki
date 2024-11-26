@@ -11,6 +11,12 @@ def index(request):
 
 def entry_page(request, title):
     content = util.get_entry(title)
+
+    if content is None:
+        return render(request, "encyclopedia/error.html", {
+            "message": f"The entry '{title}' does not exist."
+        })
+
     return render(request, "encyclopedia/entry.html", {
         "title": title,
         "content": content
