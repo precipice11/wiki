@@ -40,3 +40,6 @@ def search(request):
             "query": query,
             "matches": matches
         })
+
+def makepage(request):
+    return render(request, "encyclopedia/makepage.html")
