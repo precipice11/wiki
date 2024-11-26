@@ -21,3 +21,22 @@ def entry_page(request, title):
         "title": title,
         "content": content
     })
+
+def search(request):
+    query = request.GET.get("q", "").strip()
+    entries = util.list_entries()
+    matches = []
+
+    if query in entries:
+        return render(request, "encyclopedia/entry.html", {
+            "title": query,
+            "content": util.get_entry(query)
+        })
+    else:
+        for entry in entries:
+            if query.lower() in entry.lower():
+                matches.append(entry)
+        return render(request, "encyclopedia/search.html", {
+            "query": query,
+            "matches": matches
+        })
