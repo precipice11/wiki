@@ -9,5 +9,6 @@
     <div>
         {{ content }}
     </div>
+    <a href="{% url 'encyclopedia:edit' title %}">Edit Page</a>
     <a href="{% url 'encyclopedia:index' %}">Go back</a>
 {% endblock %}

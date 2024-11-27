@@ -10,4 +10,5 @@ urlpatterns = [
     path("search/", views.search, name="search"),
     path("makepage/", views.makepage, name="makepage"),
     path("save/", views.save, name="save"),
+    path("edit/<str:title>/", views.edit, name="edit")
 ]

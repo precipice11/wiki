@@ -54,14 +54,26 @@ def save(request):
             "message": "Both title and content are required when submitting a page."
         }) 
         titles = util.list_entries()
-        if title in titles:
-            return render(request, "encyclopedia/error.html", {
-                "message": f"The entry '{title}' already exists."
-            })
-        else:
-            util.save_entry(title, content)
-            return redirect("encyclopedia:entry_page", title=title)
+        # if title in titles:
+        #     return render(request, "encyclopedia/error.html", {
+        #         "message": f"The entry '{title}' already exists."
+        #     })
+        # else:
+        util.save_entry(title, content)
+        return redirect("encyclopedia:entry_page", title=title)
 
     return render(request, "encyclopedia/error.html", {
         "message": "Invalid request method."
     })
+
+def edit(request, title):
+    content = util.get_entry(title)
+    if content:
+        return render(request, "encyclopedia/editpage.html",  {
+            "title": title,
+            "content": content
+        })
+    else:
+        return render(request, "encyclopedia/error.html", {
+                "message": f"The entry '{title}' already exists."
+            })
