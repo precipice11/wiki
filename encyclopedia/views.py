@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from . import util
 import random
+import os
 import markdown2
 
 def index(request):
@@ -85,3 +86,13 @@ def randompage(request):
     title = random.choice(titles)
     return redirect("encyclopedia:entry_page", title=title)
 
+
+def deletepage(request, title):
+    content = util.get_entry(title)
+    if content is None:
+        return render(request, "encyclopedia/error.html", {
+            "message": f"The entry '{title}' does not exist and cannot be deleted."
+        })
+
+    util.delete_entry(title)
+    return redirect("encyclopedia:index")

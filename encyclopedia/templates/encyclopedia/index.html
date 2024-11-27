@@ -14,5 +14,12 @@
             </li>
         {% endfor %}
     </ul>
+    <ul>
+        {% for entry in entries %}
+            <li>
+                <a href="{% url 'encyclopedia:deletepage' entry %}">❌ {{ entry }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}
