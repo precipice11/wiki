@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from . import util
 import random
-
+import markdown2
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -13,15 +13,16 @@ def index(request):
 
 def entry_page(request, title):
     content = util.get_entry(title)
-
+    
     if content is None:
         return render(request, "encyclopedia/error.html", {
             "message": f"The entry '{title}' does not exist."
         })
 
+    html_content = markdown2.markdown(content)
     return render(request, "encyclopedia/entry.html", {
         "title": title,
-        "content": content
+        "content": html_content
     })
 
 def search(request):
