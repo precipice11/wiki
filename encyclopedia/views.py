@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
+from django.shortcuts import redirect
 from . import util
 
 
@@ -43,3 +44,24 @@ def search(request):
 
 def makepage(request):
     return render(request, "encyclopedia/makepage.html")
+
+def save(request):
+    if request.method == "POST":
+        title = request.POST.get("title").strip()
+        content = request.POST.get("content").strip()
+        if not title or not content:
+            return render(request, "encyclopedia/error.html", {
+            "message": "Both title and content are required when submitting a page."
+        }) 
+        titles = util.list_entries()
+        if title in titles:
+            return render(request, "encyclopedia/error.html", {
+                "message": f"The entry '{title}' already exists."
+            })
+        else:
+            util.save_entry(title, content)
+            return redirect("encyclopedia:entry_page", title=title)
+
+    return render(request, "encyclopedia/error.html", {
+        "message": "Invalid request method."
+    })

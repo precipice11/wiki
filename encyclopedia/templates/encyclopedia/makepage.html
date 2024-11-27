@@ -8,13 +8,12 @@
     <h1>
         Create New Page
     </h1>
-    <form>
+    <form action="{% url 'encyclopedia:save' %}" method="post">
+        {% csrf_token %}
         <div>
             <input type="text" name="title" placeholder="Enter a title">
             <div>Enter your Markdown Content for your Page:</div>
-            <textarea name="content" rows="2" cols="2">
-                Start Typing...
-            </textarea>
+            <textarea name="content" rows="5" cols="30"></textarea>
         </div>
         <input type="submit">
     </form>

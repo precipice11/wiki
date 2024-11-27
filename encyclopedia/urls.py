@@ -9,4 +9,5 @@ urlpatterns = [
     path("<str:title>", views.entry_page, name="entry_page"),
     path("search/", views.search, name="search"),
     path("makepage/", views.makepage, name="makepage"),
+    path("save/", views.save, name="save"),
 ]
