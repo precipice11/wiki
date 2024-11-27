@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.shortcuts import redirect
 from . import util
+import random
 
 
 def index(request):
@@ -77,3 +78,9 @@ def edit(request, title):
         return render(request, "encyclopedia/error.html", {
                 "message": f"The entry '{title}' already exists."
             })
+
+def randompage(request):
+    titles = util.list_entries()
+    title = random.choice(titles)
+    return redirect("encyclopedia:entry_page", title=title)
+
